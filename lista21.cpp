@@ -9,6 +9,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include<iostream>
+#include<time.h>
 /*
  * Helper Functions
  */
@@ -173,6 +174,7 @@ int approx() {
 			{
 				printf("\b/");
 				if(iterator >  4200000000)
+					break;
 			}
 		}
 		
@@ -195,6 +197,7 @@ int approx() {
 			{
 				printf("\b/");
 				if(iterator >  4200000000)
+				break;
 			}
 		}
 	} while (nextNumber > precision);
@@ -213,7 +216,46 @@ int approx() {
 	
 	return 0;
 }
-
+int randomAVG() {
+	int min, max, newNumber;
+	unsigned int number;
+	unsigned int negativeCount, positiveCount;
+	int valueHolder;
+	long int negativeSum, positiveSum;
+	
+	startRandomAVG:
+	negativeCount = 0;
+	positiveCount = 0;
+	negativeSum = 0.0;
+	positiveSum = 0.0;
+	
+	printf("WprowadŸ przedzia³ liczb losowych (a b):\n");
+	scanf("%d %d", &min, &max);
+	printf("WprowadŸ iloœæ liczb:\n");
+	scanf("%ud", &number);
+	srand(time(NULL));
+	
+	for(unsigned int i = number; i > 0; i--) {
+		valueHolder = min + rand() % (max - min + 1);
+		if(valueHolder < 0) {
+			negativeCount++;
+			negativeSum += valueHolder;
+		}
+		else {
+			positiveCount++;
+			positiveSum += valueHolder;
+		}
+	}
+	printf("Liczby wiêksze od zera: %d\nŒrednia liczb wiêkszych od zera: %.1f\nLiczby mniejsze od zera: %d\nŒrednia liczb mniejszych od zera: %.1f\n", positiveCount, (float) positiveSum / (positiveCount == 0 ? 1 : positiveCount), negativeCount, (float) negativeSum / (negativeCount == 0 ? 1 : negativeCount));
+	
+	printf("\nPonowiæ? Y/*");
+	fflush(stdin);
+	newNumber = getchar();
+	if(newNumber == 'Y' or newNumber == 'y')
+		goto startRandomAVG;
+	
+	return 0;
+}
 int szachownica() {
 	int fieldX, fieldY;
 	int sideA, sideB;
@@ -306,7 +348,8 @@ int main() {
 				approx();
 				goto start;
 			case 52:
-				printf("Wybrano Program \"Œrednia RAND()\n");
+				printf("\033cWybrano Program \"Œrednia RAND()\n");
+				randomAVG();
 				goto start;
 			case 53:
 				printf("\033cWybrano Program \"Szachownica\"\n");
