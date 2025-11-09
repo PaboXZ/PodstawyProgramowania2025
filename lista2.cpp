@@ -8,6 +8,9 @@
 #include <stdio.h>
 #include<conio.h>
 #include<iostream>
+int szachownica() {
+	printf("\x1Bc");
+}
 int main() {
 	setlocale(LC_CTYPE, "Polish");
 	printf("Autor: Pawe³ Koz³owski\nGrupa: PN/P 13.15\nData: 07 listopada 2025 r.\n==================================");
@@ -32,6 +35,7 @@ int main() {
 				goto start;
 			case 53:
 				printf("Wybrano Program \"Szachownica\"\n");
+				szachownica();
 				goto start;
 		}
 	} while (tempInput != 'e');
